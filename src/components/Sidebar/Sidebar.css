@@ -93,14 +93,16 @@
   justify-content: center;
   align-items: center;
   position: absolute;
-  left: 24px;
+  left: 50%;
   bottom: 87px;
-  width: 251px;
+  width: calc(100% - 48px);
+  max-width: 251px;
   height: 48px;
   background-color: var(--switch-container-color);
   border-radius: 6px;
-  margin: 16px auto;
+  margin: 16px 0;
   gap: 23px;
+  transform: translateX(-50%);
 }
 .switch {
   position: relative;
@@ -206,8 +208,9 @@ input:checked + .slider:before {
   }
 
   .switch-container {
-    width: 180px;
-    left: 10px;
+    left: 50%;
+    width: calc(100% - 20px);
+    max-width: none;
     gap: 12px;
   }
 

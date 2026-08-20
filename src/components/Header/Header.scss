@@ -34,7 +34,7 @@
 .line {
   width: 1px;
   height: 96px;
-  border: var(--side-border);
+  border: 1px solid var(--side-border);
   position: absolute;
   left: calc(100% + 98px);
 }

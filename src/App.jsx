@@ -85,6 +85,10 @@ function App() {
     });
   }, [dispatch]);
 
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark", isDarkMode);
+  }, [isDarkMode]);
+
   if (isLoading) {
     return <WaitingView />;
   }
@@ -96,11 +100,8 @@ function App() {
         <Sidebar
           onCreateBoard={openModal}
           isDarkMode={isDarkMode}
-          setIsDarkMode={() => {
-            dispatch(themeSlice.actions.toggleTheme());
-            //setIsDarkMode(!isDarkMode);
-            //html element to be dark
-            document.documentElement.classList.toggle("dark", !isDarkMode);
+          setIsDarkMode={(nextIsDarkMode) => {
+            dispatch(themeSlice.actions.setMode(nextIsDarkMode));
           }}
         />
         <div className="right">
