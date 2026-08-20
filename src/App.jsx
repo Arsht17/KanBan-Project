@@ -7,14 +7,13 @@ import { BoardFormModal } from "./components/BoardFormModal/BoardFormModal";
 import { useAppContext } from "./contexts/useAppContext";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { boardsSlice, themeSlice } from "./store";
+import { boardsSlice, tasksSlice, themeSlice } from "./store";
 import { AddNewTask } from "./components/AddNewTask/AddNewTask";
 import { AddNewColumn } from "./components/AddNewColumn/AddNewColumn";
+import { Api } from "./api";
 
 async function getBoards() {
-  const res = await fetch("http://localhost:4000/api/boards");
-  const body = await res.json();
-  return body;
+  return Api.getBoards();
 }
 
 //reder app => useEffect=> setState=> render app=>...
@@ -71,6 +70,17 @@ function App() {
       console.log("data", data);
       //appContext.setBoards?.(data); //save in state
       dispatch(boardsSlice.actions.setBoards(data));
+      data.forEach((board) => {
+        board.columns.forEach((column) => {
+          dispatch(
+            tasksSlice.actions.setTasks({
+              boardId: board.id,
+              columnId: column.id,
+              tasks: column.tasks,
+            })
+          );
+        });
+      });
       setIsLoading(false);
     });
   }, [dispatch]);

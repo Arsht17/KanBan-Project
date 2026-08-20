@@ -2,6 +2,7 @@ import { createContext, useState } from "react";
 import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
 import { boardsSlice } from "../store";
+import { Api } from "../api";
 
 export const AppContext = createContext(null);
 
@@ -12,17 +13,7 @@ export function AppContextProvider({ children }) {
   const dispatch = useDispatch();
 
   async function createBoard(form) {
-    // update server
-    const res = await fetch("http://localhost:4000/api/boards", {
-      body: JSON.stringify({
-        name: form.name,
-      }),
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-    });
-    const newBoard = await res.json();
+    const newBoard = await Api.createBoard({ name: form.name });
     //update state (ui)
     //setBoards([...boards, newBoard])
     setBoards((prevBoards) => [...prevBoards, newBoard]);
@@ -30,17 +21,7 @@ export function AppContextProvider({ children }) {
   }
 
   async function createColumn(boardId, column) {
-    const res = await fetch(
-      "http://localhost:4000/api/boards/${boardId}/columns",
-      {
-        body: JSON.stringify(column),
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-        },
-      }
-    );
-    const newColumn = await res.json();
+    const newColumn = await Api.createColumn(boardId, column);
 
     setBoards((prevBoards) =>
       prevBoards.map((board) =>
@@ -49,12 +30,14 @@ export function AppContextProvider({ children }) {
           : board
       )
     );
-    dispatch(
-      boardsSlice.actions.editBoard({
-        id: boardId,
-        columns: [...selectedBoard.columns, newColumn],
-      })
-    );
+    if (selectedBoard) {
+      dispatch(
+        boardsSlice.actions.editBoard({
+          ...selectedBoard,
+          columns: [...selectedBoard.columns, newColumn],
+        })
+      );
+    }
   }
 
   const selectedBoard = boards.find((board) => board.id === selectedBoardId);
