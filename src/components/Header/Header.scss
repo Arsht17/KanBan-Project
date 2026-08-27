@@ -14,10 +14,19 @@
   content: "";
   position: absolute;
   bottom: 0;
-  left: 300px;
-  width: calc(100% - 300px);
+  left: var(--sidebar-width);
+  width: calc(100% - var(--sidebar-width));
   height: 1px;
   background-color: var(--head-border);
+}
+.Header::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--sidebar-width);
+  width: 1px;
+  background-color: var(--side-border);
 }
 .kanban {
   font-size: xx-large;
@@ -32,11 +41,7 @@
   margin-right: 16px;
 }
 .line {
-  width: 1px;
-  height: 96px;
-  border: 1px solid var(--side-border);
-  position: absolute;
-  left: calc(100% + 98px);
+  display: none;
 }
 .title {
   font-size: x-large;

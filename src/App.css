@@ -4,6 +4,7 @@
 }
 /* html element*/
 :root {
+  --sidebar-width: 300px;
   --main-bg: #F4F7FD;
   --side-bg: white;
   --head-bg: white;
@@ -83,11 +84,6 @@ color:inherit ;
 
 /* responsive*/
 @media (max-width: 768px) {
-  .content {
-    flex-direction: column;
-    padding: 0 8px;
-  }
-
   .app {
     padding: 0;
   }
