@@ -1,1 +1,1 @@
-This repository is a frontend-only Kanban demo for Vercel, with all data held in memory in the browser and reset whenever the page is refreshed; the full-stack version that uses the Express API remains in the other repository.
+This repository is a frontend-only Kanban demo for Vercel, with all data held in memory in the browser and reset whenever the page is refreshed; the full version that uses the Express API remains in the other repository.
